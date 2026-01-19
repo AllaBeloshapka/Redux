@@ -2,6 +2,8 @@ import { createAppSlice } from "store/createAppSlice"
 
 const counterInitialState = {
   count: 0,
+  like: 0,
+  disLike: 0,
 }
 
 export const counterSlice = createAppSlice({

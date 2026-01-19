@@ -3,17 +3,18 @@ import { useAppDispatch, useAppSelector } from "store/hooks"
 import {
   counterSliceActions,
   counterSliceSelectors,
-} from "store/pedux/counterSlice/couterSlice"
+} from "store/redux/counterSlice/couterSlice"
 import "./styles.css"
 
 
 function Counter() {
-  // не принимает аргументов, а просто нам функцию dispatch ,
-  //которая будет передавать наши действия в хранилище Redux.
+  // хук useAppDispatch - не принимает в себя аргументов, он просто возвращает 
+  // нам функцию dispatch, которая будет передавать actions в redux store. 
+  // Потом на переданный action запускается нужный нам reducer
   const dispatch = useAppDispatch()
 
-  // Получаем текущее значение счетчика из состояния Redux с помощью селектора.
-  // Таким образом подписываемся на изменения этого значения в хранилище.
+  // Забираем данные из redux store, затем передаем эти данные в нужные места в JSX,
+  // таким образом подписываемся на изменения в redux store
   const count = useAppSelector(counterSliceSelectors.count)
 
   const onMinus = () => {
@@ -21,7 +22,9 @@ function Counter() {
   }
 
   const onPlus = () => {
-    dispatch(counterSliceActions.plus())
+    // counterSliceActions.plus() - это action creator, при вызове которого мы получаем action
+    const action = counterSliceActions.plus()
+    dispatch(action)
   }
 
   return (
