@@ -1,56 +1,76 @@
 import { createAppSlice } from "store/createAppSlice"
 
+// Начальное состояние для counter slice
 const counterInitialState = {
-  count: 0,
-  like: 0,
-  disLike: 0,
-  reset: false, // Added reset property
+  count: 0,      // общий счётчик (может использоваться для тестов или примеров)
+  like: 0,       // количество лайков
+  disLike: 0,    // количество дизлайков
+  reset: false,  // флаг сброса (пока не используется в логике)
 }
 
 export const counterSlice = createAppSlice({
-  // name - это имя для slice, которое будет использоваться в Redux DevTools и других местах.
+  // Уникальное имя slice (видно в Redux DevTools)
   name: "COUNTER",
-  // initialState - это state по умолчанию для этого slice.
+
+  // Начальное состояние slice
   initialState: counterInitialState,
-  // reducers - это объект, содержащий редьюсеры для управления состоянием.
+
+  // Reducers описывают, как изменяется state при определённых событиях
   reducers: {
+    // Увеличивает общий счётчик на 1
     plus: state => {
-      state.count = state.count + 1 // Увеличение счетчика на 1
+      state.count = state.count + 1
     },
+
+    // Уменьшает общий счётчик на 1
     minus: state => {
-        state.count = state.count -1; // Уменьшение счетчика на 1
+      state.count = state.count - 1
     },
+
+    // Увеличивает количество лайков
     plusLike: state => {
-      state.like = state.like + 1;
+      state.like = state.like + 1
     },
+
+    // Увеличивает количество дизлайков
     plusDislike: state => {
-      state.disLike = state.disLike + 1;
+      state.disLike = state.disLike + 1
     },
+
+    // Сбрасывает лайки и дизлайки к начальному значению
     resetCount: state => {
-      state.like = 0;
-      state.disLike = 0;
+      state.like = 0
+      state.disLike = 0
     }
   },
+
+  // Selectors используются для чтения данных из Redux store
   selectors: {
-    // Селектор
+    // Возвращает значение общего счётчика
     count: state => {
       return state.count
     },
+
+    // Возвращает текущее количество лайков
     like: state => {
       return state.like
     },
+
+    // Возвращает текущее количество дизлайков
     disLike: state => {
       return state.disLike
     },
-    reset: state => {
-      return state.reset 
-    },
 
+    // Возвращает состояние флага reset
+    reset: state => {
+      return state.reset
+    },
   },
 })
 
-// Экспортируем действия и селекторы для использования в компонентах
-// couterSlice сам создает объект действий на основе определенных редьюсеров
+// Экспортируем actions для dispatch в компонентах
 export const counterSliceActions = counterSlice.actions
-// Экспортируем действия и селекторы для использования в компонентах
+
+// Экспортируем selectors для useAppSelector
 export const counterSliceSelectors = counterSlice.selectors
+

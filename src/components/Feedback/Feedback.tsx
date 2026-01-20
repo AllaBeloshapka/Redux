@@ -9,20 +9,27 @@ import {
 
 function Feedback() {
 
-const dataDispatch = useAppDispatch();
+  // Получаем dispatch для отправки actions в Redux
+  const dataDispatch = useAppDispatch();
 
-const likeCounter = useAppSelector(counterSliceSelectors.like);
-const disLikeCounter = useAppSelector(counterSliceSelectors.disLike);
-// const resetCounter = useAppSelector(counterSliceSelectors.reset);
+  // Получаем текущее количество лайков из store
+  const likeCounter = useAppSelector(counterSliceSelectors.like);
 
-  const likeClick  = () => {
+  // Получаем текущее количество дизлайков из store
+  const disLikeCounter = useAppSelector(counterSliceSelectors.disLike);
+
+  // Увеличивает количество лайков на 1
+  const likeClick = () => {
     dataDispatch(counterSliceActions.plusLike())
   }
-  const dislikeClick  = () => {
+
+  // Увеличивает количество дизлайков на 1
+  const dislikeClick = () => {
     dataDispatch(counterSliceActions.plusDislike())
   }
   
-  const resetResults  = () => {
+  // Обнуляет результаты (лайки и дизлайки)
+  const resetResults = () => {
     dataDispatch(counterSliceActions.resetCount())
   }
 
@@ -30,18 +37,23 @@ const disLikeCounter = useAppSelector(counterSliceSelectors.disLike);
     <div className="feedback-wrapper">
       <div className="feedback-control">
         <div className="buttonwithcount-container">
-          <Button name="Like" onClick={likeClick } />
+          <Button name="Like" onClick={likeClick} />
+          {/* Отображаем текущее количество лайков */}
           <p className="count">{likeCounter}</p>
         </div>
+
         <div className="buttonwithcount-container">
-          <Button name="Dislike" onClick={dislikeClick } />
+          <Button name="Dislike" onClick={dislikeClick} />
+          {/* Отображаем текущее количество дизлайков */}
           <p className="count">{disLikeCounter}</p>
         </div>
       </div>
-      
+
+      {/* Кнопка сброса всех результатов */}
       <Button name="Reset Results" onClick={resetResults} />
     </div>
   );
 }
 
 export default Feedback;
+
