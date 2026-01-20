@@ -4,6 +4,7 @@ const counterInitialState = {
   count: 0,
   like: 0,
   disLike: 0,
+  reset: false, // Added reset property
 }
 
 export const counterSlice = createAppSlice({
@@ -18,6 +19,16 @@ export const counterSlice = createAppSlice({
     },
     minus: state => {
         state.count = state.count -1; // Уменьшение счетчика на 1
+    },
+    plusLike: state => {
+      state.like = state.like + 1;
+    },
+    plusDislike: state => {
+      state.disLike = state.disLike + 1;
+    },
+    resetCount: state => {
+      state.like = 0;
+      state.disLike = 0;
     }
   },
   selectors: {
@@ -25,6 +36,16 @@ export const counterSlice = createAppSlice({
     count: state => {
       return state.count
     },
+    like: state => {
+      return state.like
+    },
+    disLike: state => {
+      return state.disLike
+    },
+    reset: state => {
+      return state.reset 
+    },
+
   },
 })
 
